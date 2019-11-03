@@ -1,0 +1,168 @@
+
+<?php
+if(isset($_POST['form'])){
+if($_POST['name']=="")
+{
+$error_msg['name']="name is required";
+}
+$name=$_POST['name'];
+if(!preg_match("/^"[a-zA-Z-]*$/",$name)){
+$error_msg['name']="only characters are allowed";
+}
+$contact=$_POST['contact'];
+if(empty($contact)){
+$error_msg['contact']="contact is required";
+}
+else if(!is_numeric($contact)){
+$error_msg['contact']="it should be in numbers";
+}
+else if(strlen($contact)!=10){
+$error_msg['contact']="contact should be 10 numbers";
+}
+
+$address=$_POST['address'];
+if(empty($address)){
+$error_msg['address']="address is required";
+}
+if(empty($gender)){
+$error_msg['gender']="gender is required";
+}
+$email=$_POST['email'];
+if(empty($email)){
+$error_msg['email']="email is required";
+}
+if(!filter_var($email,FILTER_VALIDATE-EMAIL)){
+$error_msg['email']="INVALID email";
+}
+$age=$_POST['age'];
+if(empty($age)){
+$error_msg['age']="age is required";
+}
+
+$date=$_POST['date'];
+if($date==NULL){
+$error_msg['date']="date is required";
+}
+$deseasese=$_POST['desease'];
+if($desease==NULL){
+$error_msg['deseasese']="desease is required";
+}
+$time=$_POST['time'];
+if($time==NULL){
+$error_msg['time']="time  is required";
+}
+$q="select * from 'appt' where username='$username' and address='$address' and contact='$contact' and email=$'email' and age='$age' and gender='$gender' and date='$date' and time='$time' and desease='$desease'"
+$r=mysqli_query($conn,$q)or die(mysql_error());
+$ro=mysqli_num_rows($r);
+if($ro==1){
+echo"your appointment is already made";
+}else{
+echo"your appointment is fixed";
+}
+
+}
+?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>appointment form</title>
+
+<link rel="stylesheet" type="text/css" href="appt.css">
+
+</head>
+<body>
+	<div class="container">
+	<img src="apptl.jfif" />
+	<h3>Make An Appointment Here<h3></br>
+	<form action="appt.php"  method="POST">
+	
+	
+	<input type ="text" name="username"  placeholder="your name"/></br>
+	<?php
+	if(isset($error_msg['name']))
+	{
+	echo $error_msg['name'];
+	}
+	?>
+	<input type ="text" name="address" id="address" placeholder="your address"/></br>
+	<input type ="contact" name="contact"  placeholder="your contact number"/></br>
+	<?php
+	if(isset($error_msg['address']))
+	{
+	echo $error_msg['address'];
+	}
+	<input type ="text" name="email"   placeholder="your mail id"/></br>
+	<?php
+	if(isset($error_msg['email']))
+	{
+	echo $error_msg['email'];
+	}
+	<input type ="date" name="date"  placeholder="enter date DD/MM/2019"/></br>
+	<?php
+	if(isset($error_msg['date']))
+	{
+	echo $error_msg['date'];
+	}
+	<input type ="number" name="age"  placeholder="enter your age"/></br>
+	<?php
+	if(isset($error_msg['age']))
+	{
+	echo $error_msg['age'];
+	}
+	<input type ="radio" name="gender"  <?php
+	if(isset($gender)&&$gender='female')
+	echo'checked="checked"';
+	?> />female
+	<input type ="radio" name="gender"  <?php
+	if(isset($gender)&&$gender='male')
+	echo'checked="checked"';
+	?> />male </br>
+	<?php
+	if(isset($error_msg['gender']))
+	{
+	echo $error_msg['gender'];
+	}
+	<select type="selection" name="desease" ">
+	<option >desease</option>
+	<option >dental desease</option>
+	<option>eye related desease</option>
+	<option >ear related desease</option>
+	<option  >brain related desease</option>
+	<option  >bone related desease</option>
+	<option  >heart desease</option>
+	<option  >stomach desease</option>
+	<option>other </option>
+	</select></br>
+	<?php
+	if(isset($error_msg['desease']))
+	{
+	echo $error_msg['desease'];
+	}
+	<select type="section" name="time">
+	<ol>
+	<option >time to meet</option>
+	<option name="time" placeholder="time to meet" >9.00 am to 10.00 am</option>
+	<option name="time" placeholder="time to meet" >10.00 am to 11.00 am</option>
+	<option name="time" placeholder="time to meet" >11.00 am to 12.00 pm</option>
+	<option name="time" placeholder="time to meet" >12.00 pm to 1.00 pm</option>
+	<option name="time" placeholder="time to meet" >2.00 pm to 3.00 pm</option>
+	<option name="time" placeholder="time to meet" >3.00 pm to 4.00 pm</option>
+	<option name="time" placeholder="time to meet" >4.00 pm to 5.00 pm</option>
+	<option name="time" placeholder="time to meet" >5.00 pm to 6.00 pm</option>
+	<option name="time" placeholder="time to meet" >6.00 pm to 7.00 pm</option>
+	<option name="time" placeholder="time to meet" >7.00 pm to 8.00 pm</option>
+	</ol>
+	</select>
+	</br>
+	<?php
+	if(isset($error_msg['time']))
+	{
+	echo $error_msg['time'];
+	}
+	<input type="submit" value="submit" class="btnsbmt"/>
+	</form>
+	</div>
+</body>
+</html>

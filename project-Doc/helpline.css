@@ -1,0 +1,42 @@
+*{
+margin: 0;
+ padding: 0;
+
+font-family: 'ZCOOL XiaoWei', serif;
+}
+body{
+width: 100%;
+height: 100vh;
+background-image:url("help.jpg");
+background-repeat: no-repeat;
+background-size: 100% 100%;
+
+}
+h3{
+	color:white;
+	font-size:50px;
+	text-transform:uppercase;
+	text-align:center;
+}
+.helpline{
+	margin:0;
+	width:100%;
+	height:auto;
+	display:flex;
+	align-item:center;
+	text-align:center;
+	padding:20px 0px;
+}
+p{
+	margin:80px auto;
+	color:white;
+}
+.box{
+	margin:20px 500px;
+    border:2px solid black;
+	width:500px;
+	height:auto;
+	text-align:center;
+	background:linear-gradient(black,blue,black);
+	border-radius:80px;
+}
